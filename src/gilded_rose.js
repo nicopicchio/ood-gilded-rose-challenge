@@ -18,6 +18,10 @@ class Shop {
     this.items = items
   }
 
+  getAllItems() {
+    return this.items
+  }
+  
   updateQuality() {
     for (const item of this.items) {
       if (item.name !== agedBrie && item.name !== backstagePasses && item.quality > minQuality && item.name !== sulfurasRagnaros) {
@@ -61,9 +65,7 @@ class Shop {
     return this.items
   }
 
-  getAllItems() {
-    return this.items
-  }
+
 }
 module.exports = {
   Item,
