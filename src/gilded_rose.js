@@ -1,4 +1,3 @@
-const oneDay = 1
 const agedBrie = 'Aged Brie'
 const backstagePasses = 'Backstage passes to a TAFKAL80ETC concert'
 const sulfurasRagnaros = 'Sulfuras, Hand of Ragnaros'
@@ -22,41 +21,39 @@ class Shop {
   updateQuality() {
     for (const item of this.items) {
       if (item.name !== agedBrie && item.name !== backstagePasses && item.quality > minQuality && item.name !== sulfurasRagnaros) {
-        item.quality = item.quality - 1  
+        item.quality--  
       } else {
         if (item.quality < maxQuality) {
-          item.quality = item.quality + 1
+          item.quality++
           if (item.name === backstagePasses) {
             if (item.sellIn < 11) {
               if (item.quality < maxQuality) {
-                item.quality = item.quality + 1
+                item.quality++
               }
             }
             if (item.sellIn < 6) {
               if (item.quality < maxQuality) {
-                item.quality = item.quality + 1
+                item.quality++
               }
             }
           }
         }
       }
-      if (item.name !== sulfurasRagnaros) {
-        item.sellIn = item.sellIn - oneDay
-      }
+      if (item.name !== sulfurasRagnaros) item.sellIn--
       if (item.sellIn < 0 || item.name === conjuredManaCake) {
         if (item.name !== agedBrie) {
           if (item.name !== backstagePasses) {
             if (item.quality > minQuality) {
               if (item.name !== sulfurasRagnaros) {
-                item.quality = item.quality - 1
+                item.quality--
               }
             }
           } else {
-            item.quality = item.quality - item.quality
+            item.quality = minQuality
           }
         } else {
           if (item.quality < maxQuality) {
-            item.quality = item.quality + 1
+            item.quality++
           }
         }
       }
