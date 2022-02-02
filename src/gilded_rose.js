@@ -16,12 +16,13 @@ class Shop {
   constructor (items = []) {
     this.items = items
     this.maxQuality = 50
+    this.minQuality = 0
   }
 
   updateQuality() {
     for (const item of this.items) {
       if (item.name !== agedBrie && item.name !== backstagePasses) {
-        if (item.quality > 0) {
+        if (item.quality > this.minQuality) {
           if (item.name !== sulfurasRagnaros) {
             item.quality = item.quality - 1
           }
@@ -49,7 +50,7 @@ class Shop {
       if (item.sellIn < 0 || item.name === conjuredManaCake) {
         if (item.name !== agedBrie) {
           if (item.name !== backstagePasses) {
-            if (item.quality > 0) {
+            if (item.quality > this.minQuality) {
               if (item.name !== sulfurasRagnaros) {
                 item.quality = item.quality - 1
               }
