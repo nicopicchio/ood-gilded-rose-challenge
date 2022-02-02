@@ -15,6 +15,7 @@ class Item {
 class Shop {
   constructor (items = []) {
     this.items = items
+    this.maxQuality = 50
   }
 
   updateQuality() {
@@ -26,16 +27,16 @@ class Shop {
           }
         }
       } else {
-        if (item.quality < 50) {
+        if (item.quality < this.maxQuality) {
           item.quality = item.quality + 1
           if (item.name === backstagePasses) {
             if (item.sellIn < 11) {
-              if (item.quality < 50) {
+              if (item.quality < this.maxQuality) {
                 item.quality = item.quality + 1
               }
             }
             if (item.sellIn < 6) {
-              if (item.quality < 50) {
+              if (item.quality < this.maxQuality) {
                 item.quality = item.quality + 1
               }
             }
@@ -57,7 +58,7 @@ class Shop {
             item.quality = item.quality - item.quality
           }
         } else {
-          if (item.quality < 50) {
+          if (item.quality < this.maxQuality) {
             item.quality = item.quality + 1
           }
         }
