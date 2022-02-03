@@ -22,6 +22,14 @@ class Shop {
     return this.items
   }
 
+  qualityIncrementer() {
+    this.quality++
+  }
+
+  qualityDecrementer() {
+    this.quality--
+  }
+
   updateQuality() {
     for (const item of this.items) {
       if (item.name !== agedBrie && item.name !== backstagePasses && item.quality > minQuality && item.name !== sulfurasRagnaros) {
