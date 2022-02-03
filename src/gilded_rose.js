@@ -34,7 +34,7 @@ class Shop {
   }
 
   incrementByTwo() {
-
+    
   }
 
   decrementByTwo() {
