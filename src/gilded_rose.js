@@ -4,6 +4,7 @@ const sulfurasRagnaros = 'Sulfuras, Hand of Ragnaros'
 const conjuredManaCake = 'Conjured Mana Cake'
 const maxQuality = 50
 const minQuality = 0
+const expiringDate = 0
 
 class Item {
   constructor (name, sellIn, quality) {
@@ -30,6 +31,22 @@ class Shop {
     this.quality--
   }
 
+  isAgedBrie(itemName) {
+    return this.items.find(item => item.name === itemName)
+  }
+
+  isBackstagePass(itemName) {
+    return this.items.find(item => item.name === itemName)
+  }
+
+  isSulfurasRagnaros(itemName) {
+    return this.items.find(item => item.name === itemName)
+  }
+
+  isConjuredCake(itemName) {
+    return this.items.find(item => item.name === itemName)
+  }
+
   updateQuality() {
     for (const item of this.items) {
       if (item.name !== agedBrie && item.name !== backstagePasses && item.quality > minQuality && item.name !== sulfurasRagnaros) {
@@ -37,7 +54,7 @@ class Shop {
       } else {
         if (item.quality < maxQuality) {
           item.quality++
-          if (item.name === backstagePasses) {
+          if (this.isBackstagePass(backstagePasses)) {
             if (item.sellIn < 11) {
               if (item.quality < maxQuality) {
                 item.quality++
@@ -51,15 +68,11 @@ class Shop {
           }
         }
       }
-      if (item.name !== sulfurasRagnaros) item.sellIn--
-      if (item.sellIn < 0 || item.name === conjuredManaCake) {
-        if (item.name !== agedBrie) {
-          if (item.name !== backstagePasses) {
-            if (item.quality > minQuality) {
-              if (item.name !== sulfurasRagnaros) {
-                item.quality--
-              }
-            }
+      if (!this.isSulfurasRagnaros(sulfurasRagnaros)) item.sellIn--
+      if (item.sellIn < expiringDate || item.name === conjuredManaCake) {
+        if (!this.isAgedBrie(agedBrie)) {
+          if (!this.isBackstagePass(backstagePasses)) {
+            if (item.quality > minQuality && item.name !== sulfurasRagnaros) item.quality--
           } else {
             item.quality = minQuality
           }
@@ -69,10 +82,11 @@ class Shop {
           }
         }
       }
+      return this.items
     }
-    return this.items
   }
 }
+
 module.exports = {
   Item,
   Shop
