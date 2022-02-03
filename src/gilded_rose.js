@@ -47,9 +47,19 @@ class Shop {
     return this.items.find(item => item.name === itemName)
   }
 
+  isMaxQuality(itemQuality) {
+    this.items.find(item => item.quality === itemQuality)
+    return itemQuality < maxQuality
+  }
+
+  isMinQuality(itemQuality) {
+    this.items.find(item => item.quality === itemQuality)
+    return itemQuality > minQuality
+  }
+
   updateQuality() {
     for (const item of this.items) {
-      if (item.name !== agedBrie && item.name !== backstagePasses && item.quality > minQuality && item.name !== sulfurasRagnaros) item.quality--
+      if (!this.isAgedBrie(agedBrie) && !this.isBackstagePass(backstagePasses) && item.quality > minQuality && !this.isSulfurasRagnaros(sulfurasRagnaros)) item.quality--
       else if (item.quality < maxQuality) item.quality++
       if (this.isBackstagePass(backstagePasses)) {
         if (item.sellIn < 11 && item.quality < maxQuality) item.quality++
@@ -58,10 +68,10 @@ class Shop {
         }
       }
       if (!this.isSulfurasRagnaros(sulfurasRagnaros)) item.sellIn--
-      if (item.sellIn < expiringDate || item.name === conjuredManaCake) {
+      if (item.sellIn < expiringDate || this.isConjuredCake(conjuredManaCake)) {
         if (!this.isAgedBrie(agedBrie)) {
           if (!this.isBackstagePass(backstagePasses)) {
-            if (item.quality > minQuality && item.name !== sulfurasRagnaros) item.quality--
+            if (item.quality > minQuality && !this.isSulfurasRagnaros(sulfurasRagnaros)) item.quality--
           } else {
             item.quality = minQuality
           }
