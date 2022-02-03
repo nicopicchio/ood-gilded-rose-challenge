@@ -49,23 +49,12 @@ class Shop {
 
   updateQuality() {
     for (const item of this.items) {
-      if (item.name !== agedBrie && item.name !== backstagePasses && item.quality > minQuality && item.name !== sulfurasRagnaros) {
-        item.quality--  
-      } else {
-        if (item.quality < maxQuality) {
-          item.quality++
-          if (this.isBackstagePass(backstagePasses)) {
-            if (item.sellIn < 11) {
-              if (item.quality < maxQuality) {
-                item.quality++
-              }
-            }
-            if (item.sellIn < 6) {
-              if (item.quality < maxQuality) {
-                item.quality++
-              }
-            }
-          }
+      if (item.name !== agedBrie && item.name !== backstagePasses && item.quality > minQuality && item.name !== sulfurasRagnaros) item.quality--
+      else if (item.quality < maxQuality) item.quality++
+      if (this.isBackstagePass(backstagePasses)) {
+        if (item.sellIn < 11 && item.quality < maxQuality) item.quality++
+        if (item.sellIn < 6) {
+          if (item.quality < maxQuality) item.quality++
         }
       }
       if (!this.isSulfurasRagnaros(sulfurasRagnaros)) item.sellIn--
@@ -77,9 +66,7 @@ class Shop {
             item.quality = minQuality
           }
         } else {
-          if (item.quality < maxQuality) {
-            item.quality++
-          }
+          if (item.quality < maxQuality) item.quality++
         }
       }
       return this.items
