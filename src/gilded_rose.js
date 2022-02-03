@@ -25,41 +25,41 @@ class Shop {
     return this.items
   }
 
-  qualityIncrementer() {
-    this.quality++
+  incrementByOne(item) {
+    item.quality++
   }
 
-  qualityDecrementer() {
-    this.quality--
+  decrementByOne(item) {
+    item.quality--
   }
 
-  isAgedBrie(itemName) {
-    return this.items.find(item => item.name === itemName)
+  incrementByTwo() {
+
   }
 
-  isBackstagePass(itemName) {
-    return this.items.find(item => item.name === itemName)
+  decrementByTwo() {
+    
   }
 
-  isSulfurasRagnaros(itemName) {
-    return this.items.find(item => item.name === itemName)
+  incrementByThree() {
+    
   }
 
-  isConjuredCake(itemName) {
+  findItem(itemName) {
     return this.items.find(item => item.name === itemName)
   }
 
   updateQuality() {
     for (const item of this.items) {
-      if (!this.isAgedBrie(agedBrie) && !this.isBackstagePass(backstagePasses) && item.quality > minQuality && !this.isSulfurasRagnaros(sulfurasRagnaros)) { item.quality-- }
-      else if (item.quality < maxQuality) { item.quality++ }
-      if (this.isBackstagePass(backstagePasses)) {
-        if (item.sellIn < backstageBoostTenDays && item.quality < maxQuality) { item.quality++ }
-        if (item.sellIn < backstageBoostFiveDays && item.quality < maxQuality) { item.quality++ }
+      if (!this.findItem(agedBrie) && !this.findItem(backstagePasses) && item.quality > minQuality && !this.findItem(sulfurasRagnaros)) this.decrementByOne(item)
+      else if (item.quality < maxQuality) this.incrementByOne(item)
+      if (this.findItem(backstagePasses)) {
+        if (item.sellIn < backstageBoostTenDays && item.quality < maxQuality) this.incrementByOne(item)
+        if (item.sellIn < backstageBoostFiveDays && item.quality < maxQuality) this.incrementByOne(item)
       }
-      if (!this.isSulfurasRagnaros(sulfurasRagnaros)) { item.sellIn-- }
-      if (item.sellIn < expiryDate || this.isConjuredCake(conjuredManaCake) && !this.isAgedBrie(agedBrie) && !this.isSulfurasRagnaros(sulfurasRagnaros) && item.quality > minQuality) {
-        if (!this.isBackstagePass(backstagePasses)) { item.quality-- }
+      if (!this.findItem(sulfurasRagnaros)) item.sellIn--
+      if (item.sellIn < expiryDate || this.findItem(conjuredManaCake) && !this.findItem(agedBrie) && !this.findItem(sulfurasRagnaros) && item.quality > minQuality) {
+        if (!this.findItem(backstagePasses)) this.decrementByOne(item)
         else item.quality = minQuality
       }
       return this.items
