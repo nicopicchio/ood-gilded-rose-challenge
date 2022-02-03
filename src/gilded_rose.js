@@ -25,6 +25,10 @@ class Shop {
     return this.items
   }
 
+  dayDecrement(item) {
+    item.sellIn--
+  }
+
   incrementByOne(item) {
     item.quality++
   }
@@ -57,7 +61,7 @@ class Shop {
         if (item.sellIn < backstageBoostTenDays && item.quality < maxQuality) this.incrementByOne(item)
         if (item.sellIn < backstageBoostFiveDays && item.quality < maxQuality) this.incrementByOne(item)
       }
-      if (!this.findItem(sulfurasRagnaros)) item.sellIn--
+      if (!this.findItem(sulfurasRagnaros)) this.dayDecrement(item)
       if (item.sellIn < expiryDate || this.findItem(conjuredManaCake) && !this.findItem(agedBrie) && !this.findItem(sulfurasRagnaros) && item.quality > minQuality) {
         if (!this.findItem(backstagePasses)) this.decrementByOne(item)
         else item.quality = minQuality
