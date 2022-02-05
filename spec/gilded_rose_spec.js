@@ -1,4 +1,4 @@
-const { Shop, Item } = require('../src/gilded_rose.js')
+const { Shop, Item, RegularItem, AgedBrie } = require('../src/gilded_rose.js')
 describe('Gilded Rose', function () {
 
   it('new instance of shop should return an empty array', function () {
@@ -10,26 +10,30 @@ describe('Gilded Rose', function () {
 
   it('should add foo to the items array', function () {
     const gildedRose = new Shop([new Item('foo', 0, 0)])
-    const items = gildedRose.updateQuality()
+    const items = gildedRose.getAllItems()
     expect(items[0].name).toEqual('foo')
   })
 
   it('should add milk to the items array and decrease sellIn and quality values by 1', function () {
     const gildedRose = new Shop([new Item('milk', 7, 7)])
-    const items = gildedRose.updateQuality(1)
+    gildedRose.updateQuality()
+    const items = gildedRose.getAllItems()
     expect(items[0].sellIn).toEqual(6)
     expect(items[0].quality).toEqual(6)
   })
 
   it('quality should decrease twice as fast when past the sellIn date', function () {
     const gildedRose = new Shop([new Item('milk', 0, 50)])
-    const items = gildedRose.updateQuality()
+    gildedRose.updateQuality()
+    const items = gildedRose.getAllItems()
     expect(items[0].quality).toEqual(48)
   })
 
   it('quality should never be a negative number', function () {
     const gildedRose = new Shop([new Item('milk', 0, 0)])
-    const items = gildedRose.updateQuality()
+    gildedRose.updateQuality()
+    const items = gildedRose.getAllItems()
+    expect(items[0].sellIn).toEqual(-1)
     expect(items[0].quality).toEqual(0)
   })
 
@@ -42,7 +46,8 @@ describe('Gilded Rose', function () {
 
   it('the quality of an item is never greater than 50', function () {
     const gildedRose = new Shop([new Item('Aged Brie', 5, 50)])
-    const items = gildedRose.updateQuality()
+    gildedRose.updateQuality()
+    const items = gildedRose.getAllItems()
     expect(items[0].sellIn).toEqual(4)
     expect(items[0].quality).toEqual(50)
   })
